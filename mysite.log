@@ -6315,3 +6315,6 @@ django.template.base.VariableDoesNotExist: Failed lookup for key [subtitle] in [
 [25/Nov/2022 11:43:25] WARNING [django.server:161] "GET /contacts HTTP/1.1" 404 179
 [25/Nov/2022 11:43:30] INFO [django.server:161] "GET /contact HTTP/1.1" 301 0
 [25/Nov/2022 11:43:30] INFO [django.server:161] "GET /contact/ HTTP/1.1" 200 52
+[25/Nov/2022 15:51:49] DEBUG [django.db.backends.schema:136] CREATE TABLE "foods_food" ("id" bigserial NOT NULL PRIMARY KEY, "created_on" timestamp with time zone NOT NULL, "modified_on" timestamp with time zone NOT NULL, "title" varchar(150) NOT NULL, "content" text NOT NULL, "image" varchar(100) NOT NULL, "dress_code" varchar(20) NOT NULL, "kids_friendly" varchar(20) NOT NULL, "owner_id" integer NOT NULL); (params None)
+[25/Nov/2022 15:51:49] DEBUG [django.db.backends.schema:136] ALTER TABLE "foods_food" ADD CONSTRAINT "foods_food_owner_id_62f48a20_fk_auth_user_id" FOREIGN KEY ("owner_id") REFERENCES "auth_user" ("id") DEFERRABLE INITIALLY DEFERRED; (params ())
+[25/Nov/2022 15:51:49] DEBUG [django.db.backends.schema:136] CREATE INDEX "foods_food_owner_id_62f48a20" ON "foods_food" ("owner_id"); (params ())

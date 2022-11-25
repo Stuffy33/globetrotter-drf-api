@@ -1,3 +1,27 @@
-from django.shortcuts import render
+from rest_framework import generics, permissions, filters
+from drf_api.permissions import IsOwnerOrReadOnly
+from .models import Food
+from .serializers import FoodSerializer
 
-# Create your views here.
+class FoodList(generics.ListCreateAPIView):
+    serializer_class = FoodSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    queryset = Food.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+    filter_backends = [
+        filters.SearchFilter,
+    ]
+
+    search_fields = [
+        'owner__username',
+        'title',
+    ]
+
+
+class FoodDetail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = FoodSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    queryset = Food.objects.all()
