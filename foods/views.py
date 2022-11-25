@@ -5,6 +5,7 @@ from drf_api.permissions import IsOwnerOrReadOnly
 from .models import Food
 from .serializers import FoodSerializer
 
+
 class FoodList(generics.ListCreateAPIView):
     serializer_class = FoodSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]

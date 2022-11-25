@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Food
 
+
 class FoodSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()

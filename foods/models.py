@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Food(models.Model):
     dress_code_choices = [
         ('beach_vibes', 'Beach Vibes'),

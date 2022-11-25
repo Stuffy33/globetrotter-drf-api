@@ -17,15 +17,38 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Food',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID'
+                )),
                 ('created_on', models.DateTimeField(auto_now_add=True)),
                 ('modified_on', models.DateTimeField(auto_now=True)),
                 ('title', models.CharField(max_length=150)),
                 ('content', models.TextField(blank=True)),
-                ('image', models.ImageField(blank=True, default='../default_post_rgq6aq', upload_to='images/')),
-                ('dress_code', models.CharField(choices=[('beach_vibes', 'Beach Vibes'), ('casual', 'Casual'), ('button_up', 'Button up'), ('fancy', 'Fancy')], default='none', max_length=20)),
-                ('kids_friendly', models.CharField(choices=[('yes', 'Yes'), ('no', 'No'), ('unknown', 'Unknown')], default='none', max_length=20)),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('image', models.ImageField(
+                    blank=True,
+                    default='../default_post_rgq6aq',
+                    upload_to='images/')),
+                ('dress_code', models.CharField(
+                    choices=[
+                        ('beach_vibes', 'Beach Vibes'),
+                        ('casual', 'Casual'),
+                        ('button_up', 'Button up'),
+                        ('fancy', 'Fancy')],
+                    default='none',
+                    max_length=20
+                )),
+                ('kids_friendly', models.CharField(choices=[
+                    ('yes', 'Yes'),
+                    ('no', 'No'),
+                    ('unknown', 'Unknown')
+                ], default='none', max_length=20)),
+                ('owner', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to=settings.AUTH_USER_MODEL
+                )),
             ],
             options={
                 'ordering': ['-created_on'],

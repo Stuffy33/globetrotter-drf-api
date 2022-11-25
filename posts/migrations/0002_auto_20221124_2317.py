@@ -17,6 +17,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='post',
             name='clothing',
-            field=models.CharField(choices=[('warm', 'Warm'), ('comfy ', 'Comfy'), ('swimming', 'Swimming'), ('fancy', 'Fancy')], default='comfy', max_length=32),
+            field=models.CharField(choices=[
+                ('warm', 'Warm'),
+                ('comfy ', 'Comfy'),
+                ('swimming', 'Swimming'),
+                ('fancy', 'Fancy')],
+                default='comfy',
+                max_length=32
+            ),
         ),
     ]
