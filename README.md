@@ -4,7 +4,6 @@ GlobeTrotter is a website for people that want to experiance capetown but are no
 #### DEPLOYED API HEROKU [LINK](https://globetrotter-drf-api.herokuapp.com/)
 #### DEPLOYED FRONTEND HEROKU [LINK - LIVE SITE](https://globetrotter-ci.herokuapp.com/)
 #### DEPLOYED FRONTEND [REPOSITORY](https://github.com/Stuffy33/globetrotter)
-drf_api/settings.py
 #### DEPLOYED BACKEND [REPOSITORY](https://github.com/Stuffy33/globetrotter-drf-api/)
 
 ## Table of Contents
@@ -23,6 +22,7 @@ drf_api/settings.py
 
 ## User Stories:
 (https://github.com/users/Stuffy33/projects/7).
+![kanban](/static/images-readme/readme-userstorieis.png)
 
 
 ## Database:
@@ -30,51 +30,20 @@ drf_api/settings.py
 
 ## Testing:
 ### Validator Testing: 
-All files passed through [PEP8](http://pep8online.com/) without error.
+All files passed through except for some minor "no new line at end of file" that i don't think is required to fix [pycodestyle](/static/images-readme/readme-pycodestyle.png)
 
-![PEP8](/static/images-readme/readme-pep8.png)
+PEP8 was down so my mentor "Martina Terlevic" recommended me to use Pycodestyle instead.
 
 ### Manual Testing:
 1. Manually verified each url path created works & opens without error.
-2. Verified that the CRUD functionality is available in each app via the development version: Articles, Events, Comments, Followers, Likes, Posts, Profiles
+2. Verified that the CRUD functionality is available in each app via the development version: Foods, Comments, Followers, Likes, Posts, Profiles
  - Checked this by going to each link.
  - Creating a new item.
  - Checking new item URL path. 
- - Editing the item (not available for Likes, Followers or Users)
- - Deleting the item (Not available for Users or Profiles)
-3. Ensured search feature for Posts, Events & Articles apps returns results. Results not filtered for events:
- - Checked the views file for Events. Filter & search field functions were not indented correctly. Once amended, the search bar produced the desired results.
-4. Repeated the steps for the deployed API, and all pages except `/profiles` would load.
- - checked the code, and was unable to find an error, other than the "Server Error (500)" on the deployed link.
- - Reached out to Tutor support, and Ger was able to detect that the issue was with the database model.
- - reset the database with the following commands:
-```
-python3 manage.py migrate profiles zero
-```
- - upon completion, & migrating the database once again , all links were now viable on the Heroku deployed link.
-5. Frontend App throws a 500 error when saving the posts form.
- - Logged in to admin panel of deployed API app. The same error arises.
- - migrated the posts app back to zero, and made the migrations again. The issue persists.
- - backed up the database `python manage.py dumpdata > db.json`, & then ran the following commands:
-```
-curl https://cli-assets.heroku.com/install.sh | sh
-heroku login -i
-heroku pg:info -a project5-drf-api
-heroku pg:reset -a project5-drf-api
-```
- - deleted `0001_initial.py` files & `__pycache__` from the migration folders in all apps.
- - Ran the migration commands again:
-```
-python3 manage.py makemigrations
-python3 manage.py migrate
-```
- - created a new super user to test functionality
-```
-python3 manage.py createsuperuser
-```
- - Was now able to create a post via the deployed admin panel.
- - upon returning to the development version of the app, we were now unable to login or create a new user
- - clearing the browser cookies & cache, as well as relaunching the gitpod workspace resolved this.
+ - Editing the items
+ - Deleting the item
+3. Ensured search feature for Posts & foods apps returns results.
+
 
 ### Unfixed Bugs
 - None so far.
@@ -92,7 +61,7 @@ python3 manage.py createsuperuser
 - Django Rest Auth
 - PostgreSQL
 - Cors Headers
-- DrawSQL: An interactive ERD platform that allows you to set up your database tables, & build the connections between them for a visual layout.
+- DrawSQL: for building the image of how the models interacts.
 
 ## Deployment:
 ### Project creation:
@@ -124,7 +93,7 @@ django-admin startproject project_name .
  - Key: ALLOWED_HOST | Value: api-app-name.herokuapp.com
 7. Add two additional configvars once the ReactApp has been created:
  - Key: CLIENT_ORIGIN | Value: https://react-app-name.herokuapp.com
- - Key: CLIENT_ORIGIN_DEV | Value: https://gitpod-browser-link.ws-eu54.gitpod.io
+ - Key: CLIENT_ORIGIN_DEV | Value: https://gitpod-browser-link.gitpod.io
   - Check that the trailing slash `\` at the end of both links has been removed.
   - Gitpod occasionally updates the browser preview link. Should this occur, the CLIENT_ORIGIN_DEV value shall need to be updated.
 
@@ -136,24 +105,36 @@ os.environ['CLOUDINARY_URL'] = 'cloudinary://hidden'
 os.environ['DEV'] = '1'
 os.environ['SECRET_KEY'] = 'hidden'
 os.environ['DATABASE_URL'] = 'postgres://hidden'
+os.environ['CLIENT_ORIGIN'] = 'https://3000 local.gitpod.io'
 ```
 ### In settings.py: 
-<!-- For reference, refer to: [DRF-API walkthrough settings.py](https://github.com/Code-Institute-Solutions/drf-api/blob/2c0931a2b569704f96c646555b0bee2a4d883f01/drf_api/settings.py) -->
 9. Add the following to INSTALLED_APPS to support the newly installed packages:
 ```
-'cloudinary_storage',
-'django.contrib.staticfiles',
-'cloudinary',
-'rest_framework',
-'django_filters',
-'rest_framework.authtoken',
-'dj_rest_auth',
-'django.contrib.sites',
-'allauth',
-'allauth.account',
-'allauth.socialaccount',
-'dj_rest_auth.registration',
-'corsheaders',
+'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'cloudinary_storage',
+    'django.contrib.staticfiles',
+    'cloudinary',
+    'rest_framework',
+    'django_filters',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
+    'corsheaders',
+    'profiles',
+    'posts',
+    'comments',
+    'likes',
+    'followers',
+    'contact',
+    'foods',
 ```
 10. Import the database, the regular expression module & the env.py
 ```
@@ -285,11 +266,9 @@ pip3 freeze --local > requirements.txt
 ## CREDITS:
 
 ### Content:
-- The creation of this API database was provided through the step by step guide of the C.I. DRF-API walkthrough project.
-- All classes & functions have been credited.
-- Modifications have been made to the 'Profiles' & 'Posts' app models, and an additional two apps along with models, serializers & views have been created by me.
-- Oisin from Tutor support went above & beyond to assist me in resolving an issue with my database that prevented new posts from being created. The steps we took have been documented in point #5 of the Manual Testing section.
+- Lauren gave me a template for Readme aswell as helped me with some deployment issues.
+- Ducan Support me and played the role as wall to bounce ideas off
 
 ### Media:
-- Default post image Photo by Artem Podrez from [Pexels](https://www.pexels.com/photo/image-of-a-whale-made-of-scrap-materials-7048043/)
-- Default profile image from [Favicon](https://favicon.io/emoji-favicons/alien-monster)
+- Default images taken from unsplash. "free to user platform"
+
